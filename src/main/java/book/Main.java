@@ -14,13 +14,13 @@ public class Main {
         try (Handle handle = jdbi.open()) {
             BookDao dao = handle.attach(BookDao.class);
             dao.createTable();
-            dao.insertBook("9781416","Scott","Leviathan",Book.Format.HARDBACK,"Simon & Schuster",LocalDate.parse("2009-10-06"),448,true);
-            dao.insertBook("8865452","Tom","ABC",Book.Format.HARDBACK,"Ester & Michale",LocalDate.parse("2009-06-15"),135,true);
-            dao.insertBook("2461672","Jennie","Pass",Book.Format.HARDBACK,"Jerry",LocalDate.parse("2009-12-24"),465,true);
-            System.out.println(dao.getBook("9781416"));
-            Book book = dao.getBook("2461672").get();
-            dao.deleteBook(book);
-            dao.listBook().stream().forEach(System.out::println);
+            dao.insert("9781416","Scott","Leviathan",Book.Format.HARDBACK,"Simon & Schuster",LocalDate.parse("2009-10-06"),448,true);
+            dao.insert("8865452","Tom","ABC",Book.Format.HARDBACK,"Ester & Michale",LocalDate.parse("2009-06-15"),135,true);
+            dao.insert("2461672","Jennie","Pass",Book.Format.HARDBACK,"Jerry",LocalDate.parse("2009-12-24"),465,true);
+            System.out.println(dao.find("9781416"));
+            Book book = dao.find("2461672").get();
+            dao.delete(book);
+            dao.findAll().stream().forEach(System.out::println);
         }
 
     }

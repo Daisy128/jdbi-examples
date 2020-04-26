@@ -28,18 +28,18 @@ public interface BookDao {
     void createTable();
 
     @SqlUpdate("INSERT INTO book VALUES (:isbn13, :author, :title, :format, :publisher,:publicationDate,:pages,:available)")
-    void insertBook(@Bind("isbn13") String isbn13, @Bind("author") String author, @Bind("title") String title, @Bind("format") Book.Format format,
+    void insert(@Bind("isbn13") String isbn13, @Bind("author") String author, @Bind("title") String title, @Bind("format") Book.Format format,
                     @Bind("publisher") String publisher, @Bind("publicationDate") LocalDate publicationDate,@Bind("pages") int pages, @Bind("available") boolean available);
 
     @SqlUpdate("INSERT INTO book VALUES (:isbn13, :author, :title, :format, :publisher,:publicationDate,:pages,:available)")
-    void insertBook(@BindBean Book book);
+    void insert(@BindBean Book book);
 
     @SqlQuery("SELECT * FROM book WHERE isbn13 = :isbn13")
-    Optional<Book> getBook(@Bind("isbn13") String isbn13);
+    Optional<Book> find(@Bind("isbn13") String isbn13);
 
     @SqlUpdate("DELETE FROM book WHERE isbn13= :isbn13")
-    void deleteBook(@BindBean Book book);
+    void delete(@BindBean Book book);
 
     @SqlQuery("SELECT * FROM book ORDER BY publicationDate")
-    List<Book> listBook();
+    List<Book> findAll();
 }
